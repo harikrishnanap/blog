@@ -1,0 +1,58 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'blog/category_posts.css' %}">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+
+            <!-- Category Title -->
+            <div class="mb-5 text-center" style="padding:.5rem;">
+                <h2 class="fw-bold text-primary">Posts in Category: "{{ category.name }}"</h2>
+                <!--                <hr class="w-25 mx-auto text-primary" />-->
+            </div>
+
+            <!-- Posts Loop -->
+            {% for post in page_obj %}
+            <article class="home-post mb-5 shadow-sm p-4 bg-light rounded-4 border">
+                <div class="post-header mb-2">
+                    <h3 class="post-title mb-2">
+                        <a href="{% url 'post-detail' post.id %}" class="post-title-link text-dark"
+                           style="text-decoration: none;">
+                            {{ post.title|upper }}
+                        </a>
+                    </h3>
+                    <div class="post-meta text-muted small">
+                        <span>By
+                            <a href="{% url 'user-posts' post.author.username %}"
+                               class="author-link text-decoration-none fw-semibold">
+                                {{ post.author }}
+                            </a>
+                        </span>
+                        <span class="separator mx-2">•</span>
+                        <span>Published on {{ post.date_posted|date:"F d, Y" }}</span>
+                    </div>
+                </div>
+                <div class="post-footer text-end mt-3">
+                    <a href="{% url 'post-detail' post.id %}" class="read-more-btn">
+                        <i class="fas fa-book-open me-2"></i> Read More
+                    </a>
+                </div>
+            </article>
+            {% empty %}
+            <div class="no-results-box shadow-sm bg-light p-4 mt-4 text-center rounded-4 border border-warning">
+                <i class="fas fa-exclamation-circle text-warning mb-2" style="font-size: 1.75rem;"></i>
+                <h5 class="text-dark fw-semibold mt-2">No Posts Found in This Category</h5>
+                <p class="text-muted mb-0">Check back later or explore other categories from the navigation bar.</p>
+            </div>
+
+            {% endfor %}
+
+            <!-- Pagination -->
+            {% include 'blog/pagination.html' %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

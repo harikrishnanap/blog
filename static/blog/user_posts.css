@@ -1,0 +1,29 @@
+.home-post {
+    border: 1px solid #dee2e6;
+    border-radius: 1rem;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+}
+
+.home-post:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.post-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.read-more-btn {
+    font-size: 0.95rem;
+    display: inline-block;
+}
+
+.separator {
+    margin: 0 8px;
+}

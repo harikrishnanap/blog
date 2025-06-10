@@ -1,0 +1,41 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'blog/login.css' %}">
+
+<div class="container">
+    <div class="primary-content">
+        <div class="form-header">
+            <h5 class="form-header-title">
+                <i class="fas fa-sign-in-alt"></i> Log In to Your Account
+            </h5>
+            <p class="form-subtitle">Welcome back! Please enter your credentials</p>
+        </div>
+
+        <form method="POST" class="profile-form">
+            {% csrf_token %}
+
+            <div class="form-section">
+                <h6 class="section-title">Login Information</h6>
+                <div class="form-fields">
+                    {{ form|crispy }}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="signup-btn">
+                    <i class="fas fa-unlock"></i> Log In
+                </button>
+            </div>
+            <div class="form-actions" style="margin-top:.5rem;">
+                <a href="{% url 'register' %}" class="action-btn secondary">
+                    <i class="fas fa-user-plus"></i> Need an account? Sign Up
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

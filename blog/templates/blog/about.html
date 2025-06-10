@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<article class="home-post mb-4 shadow-sm p-4 bg-light rounded-4 border">
+    <div class="post-header">
+        <h2 class="post-title">
+            <span class="post-title-link" style="text-decoration: none;">About The Blog Who Lived</span>
+        </h2>
+        <div class="post-meta">
+            <span>BY <span class="author-link" style="text-decoration: none;">Harikrishnan A P</span></span>
+            <span class="separator">•</span>
+            <span class="post-date">This page lives to tell the tale</span>
+        </div>
+    </div>
+
+    <div class="post-content mt-3">
+        <p>
+            Welcome to <strong>The Blog Who Lived</strong> — a developer’s journal built on code, caffeine, and second
+            chances.
+        </p>
+        <p>
+            <strong>The Blog Who Lived</strong> isn’t just a blog — it’s a space for stories that deserve to be heard.
+            Whether it’s code you wrote, a memory you carry, a lesson life taught you, or something the world needs to know —
+            this is where it lives.
+        </p>
+        <p>
+            The name? It’s a quiet rebellion — against fear, delay, and doubt. This blog lived through it all.
+            Yeah, you guessed it — a Harry Potter fanboy. </p>
+        <p>
+            So write that post. About your first project. Or your worst heartbreak. Or your favorite food.
+            If it mattered to you, it belongs here. You matter. Your story matters. We're listening.
+        </p>
+        <p>
+            Whether you're here to learn, write, or just scroll — thanks for stopping by.
+        </p>
+    </div>
+
+    <div class="post-footer mt-4">
+        <a href="{% url 'home' %}" class="read-more-btn" style="z-index: 999 !important; position: relative;">
+            ← Back to Posts
+        </a>
+    </div>
+</article>
+
+{% endblock %}

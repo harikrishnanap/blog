@@ -1,0 +1,49 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'blog/user_posts.css' %}">
+
+<div class="container py-5 px-3">
+    <div class="mb-4 text-center" style="padding-bottom:.75rem;">
+        <h2 class="fw-bold">
+            Posts by <span class="text-primary">{{ view.kwargs.username }}</span>
+            <small class="text-muted">({{ page_obj.paginator.count }})</small>
+        </h2>
+    </div>
+
+    {% for post in page_obj %}
+        <article class="home-post bg-white shadow-sm rounded-4 p-4 mb-4">
+            <div class="post-header mb-2">
+                <h4 class="post-title mb-1">
+                    <a href="{% url 'post-detail' post.id %}" class="post-title-link text-decoration-none text-dark">
+                        {{ post.title|upper }}
+                    </a>
+                </h4>
+                <div class="post-meta text-muted">
+                    <span>BY
+                        <a href="{% url 'user-posts' post.author.username %}" class="author-link text-decoration-none fw-semibold">
+                            {{ post.author }}
+                        </a>
+                    </span>
+                    <span class="separator">•</span>
+                    <span class="post-date">Published on {{ post.date_posted|date:"F d, Y" }}</span>
+                </div>
+            </div>
+            <div class="post-content">
+                <p>{{ post.content|truncatechars:100 }}</p>
+            </div>
+            <div class="post-footer mt-3">
+                <a href="{% url 'post-detail' post.id %}" class="read-more-btn text-success fw-semibold text-decoration-none">
+                    <i class="fas fa-book-open me-1"></i> Read More
+                </a>
+            </div>
+        </article>
+    {% empty %}
+        <p class="text-muted text-center">No posts found.</p>
+    {% endfor %}
+
+    {% include 'blog/pagination.html' %}
+</div>
+
+{% endblock %}

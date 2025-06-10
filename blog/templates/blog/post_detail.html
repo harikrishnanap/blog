@@ -1,0 +1,94 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{{% static 'blog/post_detail.css' %}">
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" style="margin-bottom:1rem;">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="container py-5 px-3">
+    <article class="home-post shadow-sm p-4 bg-white rounded-4">
+        <div class="post-header mb-3">
+            <h2 class="post-title mb-2">
+                {{ post.title|upper }}
+            </h2>
+            <div class="post-meta text-muted">
+                <span>
+                    BY <a href="{% url 'user-posts' post.author.username %}"
+                          class="author-link text-decoration-none fw-semibold">{{ post.author }}</a>
+                </span>
+                <span class="separator">•</span>
+                <span class="post-date">Published on {{ post.date_posted|date:"F d, Y" }}</span>
+            </div>
+        </div>
+
+        <div class="post-categories mb-3" style="padding-bottom:1rem;">
+            <strong>Categories:</strong>
+            {% for category in post.categories.all %}
+             <a href="{% url 'category-posts' category.name %}" class="badge bg-secondary text-decoration-none">{{ category.name }}</a>
+            {% if not forloop.last %}, {% endif %}
+            {% empty %}
+            <span class="text-muted">None</span>
+            {% endfor %}
+        </div>
+
+        <div class="post-content mb-4">
+            <p>{{ post.content }}</p>
+        </div>
+
+        {% if post.author == user %}
+        <div class="post-footer d-flex gap-2">
+            <a class="btn btn-outline-primary btn-sm" href="{% url 'post-update' post.id %}">
+                <i class="fas fa-edit me-1"></i> Update
+            </a>
+            <a class="btn btn-outline-danger btn-sm" href="{% url 'post-delete' post.id %}">
+                <i class="fas fa-trash-alt me-1"></i> Delete
+            </a>
+        </div>
+        {% endif %}
+    </article>
+
+    <section class="comments-section mt-5">
+        <h4 class="mb-4"><i class="fas fa-comments me-2" style="padding-bottom:.75rem;"></i>Comments</h4>
+
+        {% if user.is_authenticated %}
+        <form method="POST" class="mb-4" style="padding-bottom:1rem;">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-success mt-2" type="submit" >
+                <i class="fas fa-comment-dots me-1" ></i> Add Comment
+            </button>
+        </form>
+        {% else %}
+        <p><a href="{% url 'login' %}" class="text-primary text-decoration-none">Log in</a> to leave a comment.</p>
+        {% endif %}
+
+        <div class="comments-list mt-4">
+            {% for comment in comments %}
+            <div class="comment mb-3 p-3 bg-light rounded-3 shadow-sm">
+                <p class="mb-1">
+                    <strong>{{ comment.author.username }}</strong>
+                    <small class="text-muted ms-2">{{ comment.date_posted|timesince }} ago</small>
+                </p>
+                <p class="mb-0">{{ comment.content }}</p>
+            </div>
+            {% empty %}
+            <p class="text-muted">No comments yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="mt-5">
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i> Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}
