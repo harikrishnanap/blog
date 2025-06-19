@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'blog/post_confirm_delete.css' %}">
+
+<div class="container">
+<!--    <div class="primary-content">-->
+        <h1 class="post-title text-center">
+            <i class="fas fa-trash-alt" style="color: var(--primary-color); margin-right: var(--space-sm); text-align:center;"></i>
+            Delete Post
+        </h1>
+
+        <div class="sidebar-card">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend>Are you sure you want to delete this post?</legend>
+                    <p class="post-title-preview">"{{ object.title|upper }}"</p>
+                </fieldset>
+                <div class="form-actions">
+                    <button class="btn btn-danger" type="submit">
+                        <i class="fas fa-trash me-1"></i> Delete
+                    </button>
+                    <a class="btn btn-outline" href="{% url 'post-detail' pk=object.pk %}">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+<!--    </div>-->
+</div>
+{% endblock %}

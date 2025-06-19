@@ -1,0 +1,76 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+{% for post in page_obj %}
+<article class="home-post mb-4 shadow-sm p-1 bg-light rounded-4 border">
+    <div class="post-header">
+        <h2 class="post-title">
+            <a href="{% url 'post-detail' post.id %}" class="post-title-link" style="text-decoration: none;">{{post.title|upper}}</a>
+        </h2>
+        <div class="post-meta">
+            <span>BY <a href="{% url 'user-posts' post.author.username%}" class="author-link"
+                style="text-decoration: none;">{{post.author}}</a></span>
+            <span class="separator">•</span>
+            <span class="post-date">Published on {{post.date_posted|date:"F d, Y"}}</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <p>{{post.content|truncatechars:100}}</p>
+    </div>
+    <div class="post-footer">
+        <a href="{% url 'post-detail' post.id %}" class="read-more-btn" style="z-index: 999 !important; position: relative;">
+             Read More
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</article>
+{% endfor %}
+
+<div class="pagination">
+    <div class="pagination-content">
+        {% if page_obj.has_previous %}
+        <a href="?page=1" class="pagination-link pagination-first">&laquo; First</a>
+        <a href="?page={{ page_obj.previous_page_number}}" class="pagination-link pagination-prev">Previous</a>
+        {% endif %}
+        <span class="pagination-current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}</span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="pagination-link pagination-next">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link pagination-last">Last &raquo;</a>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+
+
+</style>
+
+{% endblock %}
+
+
+<!-- extends 'blog/base.html' -->
+
+<!-- block content -->
+<!--    {% for post in page_obj %}-->
+<!--        <article class="home-post" style="margin-bottom: 2rem;">-->
+<!--            <h3><a href="{% url 'post-detail' post.id %}" style="text-decoration: none;">{{post.title}}</a></h3>-->
+<!--            <p style="color: var(&#45;&#45;text-muted); margin-bottom: 1rem;">BY <a href="{% url 'user-posts' post.author.username%}" style="text-decoration: none;">{{post.author}} </a> Published on {{post.date_posted|date:"F d, Y"}}</p>-->
+<!--            <p>{{post.content}}</p>-->
+<!--        </article>-->
+<!--    {% endfor %}-->
+<!--    <div class="pagination">-->
+<!--        <span class="step-link">-->
+<!--            {% if page_obj.has_previous %}-->
+<!--                <a href="?page=1">&laquo; first</a>-->
+<!--                <a href="?page={{ page_obj.previous_page_number}}">previous</a>-->
+<!--            {% endif %}-->
+<!--            <span class="current">-->
+<!--                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}-->
+<!--            </span>-->
+<!--            {% if page_obj.has_next %}-->
+<!--                <a href="?page={{ page_obj.next_page_number }}">next</a>-->
+<!--                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>-->
+<!--            {% endif %}-->
+<!--        </span>-->
+<!--    </div>-->
+<!-- endblock -->

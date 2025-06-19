@@ -1,0 +1,28 @@
+.read-more-btn {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        border: 1px solid var(--primary-color);
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+    }
+
+    .read-more-btn:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+    }
+    .no-results-box {
+    padding: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff3cd; /* Bootstrap warning background */
+    border-left: 6px solid #ffc107; /* Emphasized edge */
+    transition: all 0.3s ease;
+    }
+
+    .no-results-box:hover {
+        box-shadow: 0 0 12px rgba(255, 193, 7, 0.25);
+    }

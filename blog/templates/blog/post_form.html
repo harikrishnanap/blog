@@ -1,0 +1,125 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'blog/post_form.css' %}">
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+            <!-- Page Header -->
+            <div class="post-header" style="text-align: center; margin-bottom: var(--space-2xl);">
+                <h1 class="post-title" style="font-size: var(--text-4xl); margin-bottom: var(--space-md);">
+                    <i class="fas fa-pen-nib" style="color: var(--primary-color); margin-right: var(--space-sm);"></i>
+                    Create New Blog Post
+                </h1>
+                <p style="color: var(--text-secondary); font-size: var(--text-lg);">
+                    Share your thoughts with the world
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Main Form -->
+                <div class="col-md-8">
+                    <div class="card shadow-sm rounded-4 border-0 h-100">
+                        <div class="form-header">
+                            <h5 class="form-header-title">
+                                <i class="fas fa-edit"></i> Post Details
+                            </h5>
+                            <p class="form-subtitle">Fill in the information below to create your blog post</p>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" enctype="multipart/form-data" class="blog-form">
+                                {% csrf_token %}
+
+                                <!-- Basic Information Section -->
+                                <div class="form-section">
+                                    <h6 class="section-title">Basic Information</h6>
+                                    <div class="form-fields">
+                                        <!-- Title Field -->
+                                        <div class="form-group">
+                                            <label for="{{ form.title.id_for_label }}" class="form-label">
+                                                Post Title
+                                            </label>
+                                            {{ form.title }}
+                                            {% if form.title.errors %}
+                                            <div class="form-errors">
+                                                {% for error in form.title.errors %}
+                                                <span class="error-message">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                        </div>
+
+                                        <!-- Content Field -->
+                                        <div class="form-group">
+                                            <label for="{{ form.content.id_for_label }}" class="form-label">
+                                                Post Content
+                                            </label>
+                                            {{ form.content }}
+                                            {% if form.content.errors %}
+                                            <div class="form-errors">
+                                                {% for error in form.content.errors %}
+                                                <span class="error-message">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Categories Section -->
+                                <div class="form-section">
+<!--                                    <h6 class="section-title">Categories</h6>-->
+                                    <div class="form-fields">
+                                        <div class="form-group">
+                                            <label class="form-label" style="margin-bottom: var(--space-md);">
+                                                Select Categories
+                                            </label>
+                                            <div class="category-selection">
+                                                {% for checkbox in form.categories %}
+                                                <div class="category-item">
+                                                    {{ checkbox.tag }}
+                                                    <label for="{{ checkbox.id_for_label }}" class="category-label">
+                                                        {{ checkbox.choice_label }}
+                                                    </label>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                            <small class="form-hint">
+                                                Select multiple categories that best describe your post
+                                            </small>
+                                            {% if form.categories.errors %}
+                                            <div class="form-errors">
+                                                {% for error in form.categories.errors %}
+                                                <span class="error-message">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <!-- Form Actions -->
+                                <div class="form-actions">
+                                    <button type="submit" class="action-btn primary">
+                                        <i class="fas fa-paper-plane"></i>
+                                        Publish Post
+                                    </button>
+                                    <a href="{% url 'home' %}" class="action-btn secondary">
+                                        <i class="fas fa-times"></i>
+                                        Cancel
+                                    </a>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

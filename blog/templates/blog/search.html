@@ -1,0 +1,137 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'blog/search.css' %}">
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+            <!-- Search Form -->
+            <div class="card shadow-sm rounded-4 border-0 mb-5">
+                <div class="search-header">
+                    <h1 class="search-title">
+                        <i class="fas fa-search"></i>
+                        Search Posts
+                    </h1>
+                    <p class="search-subtitle">Find the content you're looking for</p>
+                </div>
+                <div class="card-body bg-light px-4 py-4" style="">
+                    <form method="GET" action="{% url 'search' %}" class="search-form">
+                        <div class="form-group">
+                            <label for="{{ form.query.id_for_label }}" class="form-label">
+                                Search Keywords
+                            </label>
+                            {{ form.query }}
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="search-btn">
+                                <i class="fas fa-search"></i>
+                                Search Posts
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+          <!--  <div class="search-filters">
+                <div class="filter-group">
+                    <label for="category" class="sort-label">Category:</label>
+                    <select name="category" id="category" class="filter-select" onchange="location = this.value;">
+                        {% for category in categories %}
+                        <option value="{% url 'category-posts' category.name %}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="author" class="sort-label">Author:</label>
+                    <select name="author" id="author" class="filter-select">
+                        <option value="">All Authors</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="date" class="sort-label">Date:</label>
+                    <select name="date" id="date" class="filter-select">
+                        <option value="">Any Time</option>
+                    </select>
+                </div>
+            </div> -->
+
+
+            <!-- Search Results - Only show if a search was actually performed -->
+            {% if query %}
+            <div class="search-results-section">
+                <div class="results-header">
+                    <h2 class="results-title">Search Results</h2>
+                    <p class="results-meta">
+                        {% if results %}
+                        Found {{ results|length }} result{{ results|length|pluralize }} for "<strong>{{ query }}</strong>"
+                        {% else %}
+                        No results found for "<strong>{{ query }}</strong>"
+                        {% endif %}
+                    </p>
+                </div>
+
+                {% if results %}
+                <div class="results-container">
+                    {% for post in results %}
+                    <article class="home-post">
+                        <div class="post-header">
+                            <h2 class="post-title">
+                                <a href="{% url 'post-detail' post.id %}" class="post-title-link">
+                                    {{ post.title|upper }}
+                                </a>
+                            </h2>
+                            <div class="post-meta">
+                                            <span>BY
+                                                <a href="{% url 'user-posts' post.author.username %}"
+                                                   class="author-link">
+                                                    {{ post.author }}
+                                                </a>
+                                            </span>
+                                <span class="separator">•</span>
+                                <span class="post-date">Published on {{ post.date_posted|date:"F d, Y" }}</span>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <p>{{ post.content|truncatechars:100 }}</p>
+                        </div>
+                        <div class="post-footer">
+                            <a href="{% url 'post-detail' post.id %}" class="read-more-btn">
+                                Read More
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="no-results">
+                    <div class="no-results-icon">
+                        <i class="fas fa-search-minus"></i>
+                    </div>
+                    <h3 class="no-results-title">No Results Found</h3>
+                    <p class="no-results-text">
+                        We couldn't find any posts matching your search. Try different keywords or check your spelling.
+                    </p>
+                    <div class="no-results-suggestions">
+                        <h4>Search Tips:</h4>
+                        <ul>
+                            <li>Try using different keywords</li>
+                            <li>Use broader search terms</li>
+                            <li>Check for typos in your search</li>
+                            <li>Try searching for partial words</li>
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

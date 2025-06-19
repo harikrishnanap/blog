@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Blog Who Lived</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/blog/main.css">
+</head>
+<body>
+    <!-- Header with modern design -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="/" class="logo-link">
+                    <h1 class="logo">The Blog Who Lived</h1>
+                    <p class="tagline">Thoughts, stories and ideas</p>
+                </a>
+            </div>
+
+            <!-- Mobile menu toggle -->
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Main navigation -->
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul class="nav-list">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="{% url 'profile' %}" class="nav-link"><i class="fas fa-user"></i> <span>Profile</span></a></li>
+                    <li><a href="{% url 'post-create' %}" class="nav-link"><i class="fas fa-plus"></i> <span>New Post</span></a></li>
+                    <!-- Categories Dropdown -->
+                    <li class="dropdown">
+                        <button class="dropdown-btn" aria-expanded="false">
+                            <i class="fas fa-tags"></i> <span>Categories</span> <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-content" aria-label="Categories submenu">
+                            {% for category in categories %}
+                                <li><a href="{% url 'category-posts' category.name %}" class="dropdown-link">{{category.name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'search' %}" class="nav-link"><i class="fas fa-search"></i> <span>Search</span></a></li>
+                    <li><a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+                {% else %}
+                    <li><a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                     <!-- Categories Dropdown -->
+                    <li class="dropdown">
+                        <button class="dropdown-btn" aria-expanded="false">
+                            <i class="fas fa-tags"></i> <span>Categories</span> <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-content" aria-label="Categories submenu">
+                            {% for category in categories %}
+                                <li><a href="{% url 'category-posts' category.name %}" class="dropdown-link">{{category.name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'search' %}" class="nav-link"><i class="fas fa-search"></i> <span>Search</span></a></li>
+                    <li><a href="{% url 'register' %}" class="nav-link"><i class="fas fa-register"></i> <span>Register</span></a></li>
+                    <li><a href="{% url 'login' %}" class="nav-link"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a></li>
+                {% endif %}
+                </ul>
+
+                <!-- Dark mode toggle -->
+                <div class="theme-toggle">
+                    <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox">
+                    <label for="dark-mode-toggle" class="toggle-label">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                        <span class="toggle-ball"></span>
+                    </label>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main content area -->
+    <main id="main-content" class="main-content">
+        <!-- Notification messages -->
+        {% if user.is_authenticated %}
+        <div class="messages-container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+            <div class="alert alert-success">
+                {{user.username}}, Welcome to The Blog Who Lived!
+                <button class="close-alert" aria-label="Close message">&times;</button>
+            </div>
+        </div>
+        {% else %}
+        <div class="messages-container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+            <div class="alert alert-success">
+                Welcome to The Blog Who Lived!
+                <button class="close-alert" aria-label="Close message">&times;</button>
+            </div>
+        </div>
+        {% endif %}
+        <div class="container">
+            <div class="grid-layout">
+                <!-- Primary content block -->
+                <div class="primary-content">
+                    <div style="margin-top: .5rem;">
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+                </div>
+
+                <!-- Sidebar with multiple sections -->
+                <aside class="sidebar" aria-label="Sidebar" style="order: 2;">
+
+                    <!--  About card-->
+                    <section class="sidebar-card about-card">
+                        <h2 class="card-title">About The Blog</h2>
+                        <div class="card-content">
+                            <!--<div class="about-logo"></div>-->
+                            <p>Welcome to "The Blog Who Lived" - a place for sharing knowledge, stories, and ideas.</p>
+                            <a href="{% url 'about' %}" class="btn btn-outline" style="margin-top:1rem;">Learn More</a>
+                        </div>
+                    </section>
+
+                    <!-- Recent posts -->
+                    <section class="sidebar-card" style="">
+                        <h2 class="card-title">Recent Posts</h2>
+                        <ul class="recent-posts">
+                            {% for post in recent_posts %}
+                            <li>
+                                <a href="{% url 'post-detail' post.id %}" class="post-link">
+                                    <span class="post-title">{{ post.title|upper }}</span>
+                                    <span class="post-date">{{post.date_posted|date:"F d, Y"}}</span>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+
+                    <!-- Popular tags -->
+                    <section class="sidebar-card">
+                        <h2 class="card-title">Popular Tags</h2>
+                        <div class="tags-container">
+                            {% for category in categories %}
+                                <a href="{% url 'category-posts' category.name%}" class="tag">{{ category.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </section>
+
+<!--                    {% if user.is_authenticated %}-->
+<!--                    &lt;!&ndash;create post&ndash;&gt;-->
+<!--                    <section class="sidebar-card about-card">-->
+<!--                        <h2 class="card-title">Create Post</h2>-->
+<!--                        <div class="card-content">-->
+<!--                            <p>Click here to create your blog.</p>-->
+<!--                            <a href="{% url 'post-create' %}" class="btn btn-outline">create post</a>-->
+<!--                        </div>-->
+<!--                    </section>-->
+<!--                    {% endif %}-->
+
+                    <!-- Newsletter signup -->
+<!--                    <section class="sidebar-card newsletter-card">-->
+<!--                        <h2 class="card-title">Newsletter</h2>-->
+<!--                        <div class="card-content">-->
+<!--                            <p>Subscribe to get the latest posts delivered to your inbox.</p>-->
+<!--                            <form class="newsletter-form">-->
+<!--                                <input type="email" placeholder="Your email address" required>-->
+<!--                                <button type="submit" class="btn">Subscribe</button>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </section>-->
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer with multiple sections -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- About section -->
+                <div class="footer-section">
+                    <h3 class="footer-title">About Us</h3>
+                    <p>The Blog Who Lived is a platform for writers and thinkers to share their perspectives with the world.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick links -->
+                <div class="footer-section">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div class="footer-section">
+                    <h3 class="footer-title">Categories</h3>
+                    {% for category in categories|slice:":5" %}
+                    <ul class="footer-links">
+                        <li><a href="{% url 'category-posts' category.name%}">{{ category.name }}</a></li>
+                    </ul>
+                    {% endfor %}
+                </div>
+
+                <!-- Contact info -->
+                <div class="footer-section">
+                    <h3 class="footer-title">Contact Us</h3>
+                    <address>
+                        <p><i class="fas fa-envelope"></i> contact@theblogwholived.com</p>
+                        <p><i class="fas fa-phone"></i> </p>
+                        <p><i class="fas fa-map-marker-alt"></i></p>
+                    </address>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="copyright">
+                <p>&copy; 2024 The Blog Who Lived. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Dark mode toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+            // Check for saved dark mode preference or default to system preference
+            const currentTheme = localStorage.getItem('darkMode');
+            if (currentTheme === 'enabled' ||
+                (currentTheme !== 'disabled' && prefersDarkScheme.matches)) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.checked = true;
+            }
+
+            darkModeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.body.classList.add('dark-mode');
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+        });
+
+           // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const mainNav = document.querySelector('.main-nav');
+
+        if (mobileToggle && mainNav) {
+            mobileToggle.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+                const isActive = mainNav.classList.contains('active');
+                mobileToggle.setAttribute('aria-expanded', isActive);
+            });
+        }
+    });
+
+        // Back to top button
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTop = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Close alert messages
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButtons = document.querySelectorAll('.close-alert');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            });
+        });
+
+
+
+  // Dropdown toggle for mobile
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdownBtns = document.querySelectorAll('.dropdown-btn');
+
+        dropdownBtns.forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const dropdown = this.parentElement;
+                    dropdown.classList.toggle('active');
+
+                    // Close other open dropdowns
+                    document.querySelectorAll('.dropdown').forEach(item => {
+                        if (item !== dropdown) {
+                            item.classList.remove('active');
+                        }
+                    });
+
+                    // Update aria-expanded
+                    const isActive = dropdown.classList.contains('active');
+                    this.setAttribute('aria-expanded', isActive);
+                }
+            });
+        });
+    });
+
+
+<!--        // Newsletter form submission-->
+<!--        document.addEventListener('DOMContentLoaded', function() {-->
+<!--            const newsletterForm = document.querySelector('.newsletter-form');-->
+<!--            if (newsletterForm) {-->
+<!--                newsletterForm.addEventListener('submit', function(e) {-->
+<!--                    e.preventDefault();-->
+<!--                    const email = this.querySelector('input[type="email"]').value;-->
+<!--                    alert('Thank you for subscribing with email: ' + email);-->
+<!--                    this.reset();-->
+<!--                });-->
+<!--            }-->
+<!--        });-->
+
+
+
+    </script>
+</body>
+</html>

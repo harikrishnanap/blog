@@ -1,0 +1,94 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'blog/profile.css' %}">
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+            <div class="row g-4">
+                <!-- Profile Information Card -->
+                <div class="col-md-4" >
+                    <div class="card shadow-sm rounded-4 border-0 h-100">
+                        <div class="profile-header">
+                            <h5 class="profile-header-title">
+                                <i class="fas fa-user"></i> Profile Information
+                            </h5>
+                        </div>
+                        <div class="card-body text-center" style="padding:1rem;">
+                            <!-- Profile Picture -->
+                            <div class="profile-image-container">
+                                {% if user.profile.image %}
+                                    <img src="{{ user.profile.image.url }}"
+                                         alt="Profile Picture"
+                                         class="profile-img">
+                                {% else %}
+                                    <div class="profile-img-placeholder">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- User Details -->
+                            <h4 class="profile-name">{{ user.get_full_name|default:user.username }}</h4>
+                            <p class="profile-email">{{ user.email }}</p>
+
+                            <!-- Additional Info -->
+                            <div class="profile-meta" style="padding-bottom: .75rem;">
+                                <i class="fas fa-calendar-alt"></i>
+                                Joined {{ user.date_joined|date:"F Y" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Update Form -->
+                <div class="col-md-8">
+                    <div class="card shadow-sm rounded-4 border-0 h-100">
+                        <div class="form-header">
+                            <h5 class="form-header-title" style="margin-top: var(--space-sm);">
+                                <i class="fas fa-edit"></i> Update Profile
+                            </h5>
+                            <p class="form-subtitle">Keep your information up to date</p>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" enctype="multipart/form-data" class="profile-form">
+                                {% csrf_token %}
+
+                                <!-- User Form Section -->
+                                <div class="form-section">
+                                    <h6 class="section-title">User Information</h6>
+                                    <div class="form-fields custom-file-links">
+                                        {{ u_form|crispy }}
+                                    </div>
+                                </div>
+
+                                <!-- Profile Form Section -->
+                                <div class="form-section" style="">
+                                    <h6 class="section-title">Profile Details</h6>
+                                    <div class="form-fields">
+                                        {{ p_form|crispy }}
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="form-actions">
+                                    <button type="submit" class="action-btn primary">
+                                        <i class="fas fa-save"></i> Update Profile
+                                    </button>
+                                    <a href="{% url 'home' %}" class="action-btn secondary">
+                                        <i class="fas fa-arrow-left"></i> Cancel
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
