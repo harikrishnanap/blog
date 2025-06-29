@@ -1,0 +1,29 @@
+name: blog-project
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: blog-image
+    container_name: blog-container
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+
+#  db:
+#    image: postgres:17
+#    container_name: postgres-db
+#    restart: always
+#    environment:
+#      POSTGRES_USER: my_user
+#      POSTGRES_PASSWORD: pass
+#      POSTGRES_DB: db
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    ports:
+#      - "5432:5432"
+#
+#volumes:
+#  postgres_data:

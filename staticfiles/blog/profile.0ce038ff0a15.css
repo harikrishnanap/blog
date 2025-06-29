@@ -1,0 +1,554 @@
+  .custom-file-links {
+        font-size: 0.8rem !important;
+        line-height: 1.3 !important;
+    }
+
+    .custom-file-links a {
+        font-size: inherit !important;
+        color: var(--primary-color) !important;
+        text-decoration: none !important;
+    }
+
+    .custom-file-links a:hover {
+        text-decoration: underline !important;
+        color: var(--primary-dark) !important;
+    }
+
+    .custom-file-links label {
+        font-size: inherit !important;
+    }
+
+    /* Then modify your existing form-fields section */
+    .form-fields {
+        background: var(--bg-card);
+        padding: var(--space-lg);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-light);
+    }
+
+    /* Add this to force the custom styles */
+    .form-fields .form-group div {
+        font-size: inherit !important;
+    }
+
+
+
+
+
+    /* Profile Header Styling */
+    .profile-header {
+        color: white;
+        padding: var(--space-lg) var(--space-xl);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        text-align: left;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .profile-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+    }
+
+    .profile-header-title {
+        font-family: var(--font-heading);
+        font-size: var(--text-lg);
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-sm);
+    }
+
+    .profile-header-title i {
+        font-size: var(--text-base);
+    }
+
+    /* Profile Image Styling */
+    .profile-image-container {
+        margin-bottom: var(--space-lg);
+    }
+
+    .profile-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid var(--primary-color);
+        box-shadow: var(--shadow-lg);
+        transition: all var(--transition-normal);
+    }
+
+    .profile-img:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .profile-img-placeholder {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: var(--secondary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        border: 4px solid var(--border-light);
+        box-shadow: var(--shadow);
+    }
+
+    .profile-img-placeholder i {
+        font-size: 3rem;
+        color: var(--text-muted);
+    }
+
+    /* Profile Details */
+    .profile-name {
+        font-family: var(--font-heading);
+        font-size: var(--text-xl);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: var(--space-sm);
+    }
+
+    .profile-email {
+        color: var(--text-secondary);
+        font-size: var(--text-base);
+        margin-bottom: var(--space-md);
+    }
+
+    .profile-meta {
+        color: var(--text-muted);
+        font-size: var(--text-sm);
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: var(--space-xs);
+        text-align: left;
+    }
+
+    /* Form Header Styling */
+    .form-header {
+        background: var(--bg-card);
+        border-bottom: 1px solid var(--border-light);
+        padding: var(--space-lg) var(--space-xl);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        text-align: left;
+        position: relative;
+    }
+
+    .form-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-primary);
+    }
+
+    .form-header-title {
+        font-family: var(--font-heading);
+        font-size: var(--text-lg);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: var(--space-xs);
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: var(--space-sm);
+    }
+
+    .form-header-title i {
+        color: var(--primary-color);
+        font-size: var(--text-base);
+    }
+
+    .form-subtitle {
+        color: var(--text-secondary);
+        font-size: var(--text-sm);
+        margin: 0;
+    }
+
+    /* Form Styling */
+    .profile-form {
+        padding: var(--space-lg);
+    }
+
+    .form-section {
+        margin-bottom: var(--space-xl);
+    }
+
+    .form-section:first-child {
+    margin-bottom: var(--space-lg); /* Less space after first section */
+}
+
+.form-section:last-child {
+    margin-bottom: 0; /* No margin after last section */
+}
+
+    .section-title {
+        font-family: var(--font-heading);
+        font-size: var(--text-base);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: var(--space-md);
+        padding-bottom: var(--space-sm);
+        border-bottom: 2px solid var(--border-light);
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+    }
+
+    .form-fields {
+        background: var(--bg-card);
+        padding: var(--space-lg);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-light);
+    }
+
+    /* Django Form Field Styling */
+    .form-group {
+        margin-bottom: var(--space-lg);
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: var(--space-sm);
+        font-size: var(--text-sm);
+    }
+
+    .form-control {
+        width: 100%;
+        padding: var(--space-md);
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius-md);
+        font-size: var(--text-base);
+        font-family: var(--font-primary);
+        color: var(--text-primary);
+        background: var(--bg-card);
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        transform: translateY(-2px);
+    }
+
+    /* File Input Styling */
+    .form-control[type="file"] {
+        padding: var(--space-sm);
+        background: var(--secondary-color);
+    }
+
+    /* Textarea Styling */
+    textarea.form-control {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    /* Action Buttons */
+    .form-actions {
+        text-align: center;
+        margin-top: var(--space-2xl);
+        display: flex;
+        gap: var(--space-md);
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: var(--space-sm) !important;
+    }
+
+    .action-btn {
+        padding: var(--space-md) var(--space-xl);
+        border-radius: var(--radius-lg);
+        font-size: var(--text-base);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition-normal);
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-sm);
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+        border: none;
+        min-width: 140px;
+        justify-content: center;
+    }
+
+    .action-btn.primary {
+        background: var(--gradient-primary);
+        color: white;
+    }
+
+    .action-btn.secondary {
+        background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%);
+        color: white;
+    }
+
+    .action-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .action-btn:hover::before {
+        left: 100%;
+    }
+
+    .action-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .action-btn:active {
+        transform: translateY(-1px);
+    }
+
+    /* File Input Link Styling - Added responsive sizes */
+    .form-group p,
+    .form-group .help-block,
+    .clearable-file-input p,
+    .clearable-file-input a {
+        font-size: 0.8rem !important;
+        word-wrap: break-word !important;
+        word-break: break-all !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+        white-space: normal !important;
+        line-height: 1.3 !important;
+        color: var(--primary-color) !important;
+        text-decoration: none !important;
+        transition: color var(--transition-normal) !important;
+    }
+
+    .form-group p a:hover,
+    .clearable-file-input a:hover {
+        color: var(--primary-dark) !important;
+        text-decoration: underline !important;
+    }
+
+    .clearable-file-input label {
+        font-size: 0.8rem !important;
+        margin-left: var(--space-xs) !important;
+    }
+
+    /* Card Improvements */
+    .card {
+        border: none;
+        background: var(--bg-card);
+        transition: all var(--transition-normal);
+    }
+
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    /* Remove default crispy forms styling conflicts */
+    .form-group.row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .form-group.row > .col-md-6 {
+        padding-left: 0;
+        padding-right: var(--space-sm);
+    }
+
+    .form-group.row > .col-md-6:last-child {
+        padding-right: 0;
+        padding-left: var(--space-sm);
+    }
+
+    /* Error styling */
+    .invalid-feedback {
+        color: #dc3545;
+        font-size: var(--text-xs);
+        margin-top: var(--space-xs);
+    }
+
+    .form-control.is-invalid {
+        border-color: #dc3545;
+    }
+
+    /* Success styling */
+    .form-control.is-valid {
+        border-color: #28a745;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .profile-header-title,
+        .form-header-title {
+            font-size: var(--text-base);
+            flex-direction: row;
+            gap: var(--space-sm);
+            text-align:left;
+            justify-content: flex-start;
+
+    /* Nuclear option - target ALL links in form fields */
+.form-fields a {
+    font-size: var(--text-xs) !important;
+    /* word-break: break-all !important; */
+    word-wrap: break-word !important;
+    white-space: normal !important;
+    line-height: 1.2 !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+}
+
+        .profile-img,
+        .profile-img-placeholder {
+            width: 100px;
+            height: 100px;
+        }
+
+        .profile-name {
+            font-size: var(--text-lg);
+        }
+
+        .form-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .action-btn {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .profile-form {
+            padding: var(--space-sm);
+        }
+
+        .form-fields {
+            padding: var(--space-sm);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        /* Medium screens - slightly smaller file link text */
+        .form-group p,
+        .form-group .help-block,
+        .clearable-file-input p,
+        .clearable-file-input a {
+            font-size: 0.75rem !important;
+        }
+
+        .clearable-file-input label {
+            font-size: 0.75rem !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding-left: var(--space-sm);
+            padding-right: var(--space-sm);
+        }
+
+            /* Nuclear option - target ALL links in form fields */
+.form-fields a {
+    font-size: var(--text-xs) !important;
+    /* word-break: break-all !important; */
+    word-wrap: break-word !important;
+    white-space: normal !important;
+    line-height: 1.2 !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+}
+
+        .profile-header,
+        .form-header {
+            padding: var(--space-sm);
+        }
+
+        .form-header-title {
+            font-size: var(--text-sm);
+        }
+
+        .form-subtitle {
+            font-size: var(--text-xs);
+        }
+
+        .section-title {
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .form-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-sm);
+        }
+
+        .form-group label {
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .form-control {
+            padding: 8px 10px;
+            font-size: 14px;
+            border-radius: 6px;
+        }
+
+        /* File input specific styling */
+        .form-control[type="file"] {
+            font-size: 12px;
+            padding: 6px 8px;
+        }
+
+        /* Small screens - smallest file link text */
+        .form-group p,
+        .form-group .help-block,
+        .clearable-file-input p,
+        .clearable-file-input a {
+            font-size: 0.7rem !important;
+        }
+
+        .clearable-file-input label {
+            font-size: 0.7rem !important;
+        }
+
+        .action-btn {
+            padding: var(--space-sm) var(--space-md);
+            font-size: 13px;
+            min-width: 120px;
+        }
+
+        .profile-form {
+            padding: var(--space-xs);
+        }
+
+        .form-fields {
+            padding: var(--space-sm);
+        }
+    }
